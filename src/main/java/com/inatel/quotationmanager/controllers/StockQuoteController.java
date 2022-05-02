@@ -14,66 +14,79 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/stockquote")
 public class StockQuoteController {
 
     @Autowired
-    StockQuoteService stockQuoteService;
+    private StockQuoteService stockQuoteService;
 
     @Autowired
-    StockManagerService stockManagerService;
+    private StockManagerService stockManagerService;
 
+    /**
+     * Create a Stock Quote
+     *
+     * @param stockQuoteDTO Stock Quote payload
+     * @return the Stock Quote created
+     */
     @RequestMapping(value = "/create",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<StockQuoteDTO> create(@RequestBody StockQuoteDTO stockQuoteDTO) {
+    public ResponseEntity<String> createstockquote(@RequestBody StockQuoteDTO stockQuoteDTO) {
 
         if(stockQuoteDTO.getStockId() != null){
             List<LinkedHashMap<String,String>> stockManagerDTOList = stockManagerService.getStockManagerList();
             Boolean hasStockManager = stockManagerService.hasStockManager(stockManagerDTOList, stockQuoteDTO.getStockId());
-            if(hasStockManager){
+            if(hasStockManager && !stockQuoteService.findById(stockQuoteDTO.getId()).isPresent()){
                 Optional<StockQuoteDTO> stockQuote = stockQuoteService.create(stockQuoteDTO);
-                return new ResponseEntity(stockQuoteDTO, HttpStatus.CREATED);
+                return new ResponseEntity(stockQuoteDTO.getId(), HttpStatus.CREATED);
             }
         }
-        return new ResponseEntity(stockQuoteDTO, HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity("Error!", HttpStatus.NOT_ACCEPTABLE);
     }
 
+    /**
+     * Find a Stock Quote by Stock ID
+     *
+     * @param stockId code
+     * @return a list of Stock Quotes regarding the stock id parameter
+     */
     @RequestMapping(value = "/findbystockid/{stockId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<StockQuoteDTO> findByStockId(@PathVariable("stockId") String stockId) {
-
-        Optional<StockQuoteDTO> stockQuoteDTO = stockQuoteService.findByStockId(stockId);
-
-        if(stockQuoteDTO.isPresent()) {
-            return new ResponseEntity(stockQuoteDTO.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity("Stock Quote id: " + stockId + " not found!", HttpStatus.NO_CONTENT);
-        }
-
+    public List<StockQuoteDTO> findByStockId(@PathVariable("stockId") String stockId) {
+        return stockQuoteService.findByStockId(stockId);
     }
 
-    @RequestMapping(value = "/listall",
+
+    /**
+     * List all Stock Quote
+     *
+     * @return a list of Stock Quotes
+     */
+    @RequestMapping(value = "/listallstockquote",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<List<StockQuoteDTO>> listall() {
-
-        List<StockQuoteDTO> stockQuoteDTOList = stockQuoteService.findAll();
-
-        if(stockQuoteDTOList.isEmpty()) {
-            return new ResponseEntity("No Stock Quotes found. List is empty!", HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity(stockQuoteDTOList, HttpStatus.OK);
-        }
-
+    public List<StockQuoteDTO> listall() {
+        return stockQuoteService.findAll();
     }
 
-
+    /**
+     * Clear Stock Manager cache list
+     *
+     * @return Http status
+     */
+    @RequestMapping(value = "/stockcache",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<String> delstockchache() {
+        stockManagerService.getNewStockManagerList();
+        return new ResponseEntity("Cache empty", HttpStatus.OK);
+    }
 
 
 }

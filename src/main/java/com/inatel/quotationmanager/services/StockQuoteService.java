@@ -13,7 +13,7 @@ public interface StockQuoteService {
 
     public List<StockQuoteDTO> findAll();
 
-    public Optional<StockQuoteDTO> findByStockId(String stockId);
+    public List<StockQuoteDTO> findByStockId(String stockId);
 
 
 }

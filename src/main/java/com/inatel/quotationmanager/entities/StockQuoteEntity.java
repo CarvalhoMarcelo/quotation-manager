@@ -13,7 +13,7 @@ public class StockQuoteEntity {
 
     private String stockId;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "stockQuoteEntity", cascade = CascadeType.ALL)
     private List<QuotesEntity> quotes = new ArrayList<>();
 
     public String getId() {

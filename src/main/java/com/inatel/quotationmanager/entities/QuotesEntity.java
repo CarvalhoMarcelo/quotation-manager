@@ -1,9 +1,7 @@
 package com.inatel.quotationmanager.entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -12,33 +10,62 @@ import java.util.Date;
 public class QuotesEntity {
 
     @Id
-    private String id;
+    @Column(nullable=false, unique=true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
 
-    private Date quote_date;
-    private BigDecimal quote_value;
+    private String idStock;
+    private Date quoteDate;
+    private BigDecimal quoteValue;
+
+    @ManyToOne
+    @JoinColumn(name = "stock_id")
+    private StockQuoteEntity stockQuoteEntity;
+
+    public QuotesEntity() {}
 
 
-    public String getId() {
+    public QuotesEntity(StockQuoteEntity stockQuoteEntity) {
+        this.stockQuoteEntity = stockQuoteEntity;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Date getQuote_date() {
-        return quote_date;
+    public String getIdStock() {
+        return idStock;
     }
 
-    public void setQuote_date(Date quote_date) {
-        this.quote_date = quote_date;
+    public void setIdStock(String idStock) {
+        this.idStock = idStock;
     }
 
-    public BigDecimal getQuote_value() {
-        return quote_value;
+    public Date getQuoteDate() {
+        return quoteDate;
     }
 
-    public void setQuote_value(BigDecimal quote_value) {
-        this.quote_value = quote_value;
+    public void setQuoteDate(Date quoteDate) {
+        this.quoteDate = quoteDate;
+    }
+
+    public BigDecimal getQuoteValue() {
+        return quoteValue;
+    }
+
+    public void setQuoteValue(BigDecimal quoteValue) {
+        this.quoteValue = quoteValue;
+    }
+
+    public StockQuoteEntity getStockQuoteEntity() {
+        return stockQuoteEntity;
+    }
+
+    public void setStockQuoteEntity(StockQuoteEntity stockQuoteEntity) {
+        this.stockQuoteEntity = stockQuoteEntity;
     }
 }

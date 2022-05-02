@@ -6,8 +6,10 @@ import java.util.Date;
 public class QuotesDTO {
 
     private String id;
-    private Date quote_date;
-    private BigDecimal quote_value;
+
+    private String idStock;
+    private Date quoteDate;
+    private BigDecimal quoteValue;
 
 
     public String getId() {
@@ -18,19 +20,27 @@ public class QuotesDTO {
         this.id = id;
     }
 
-    public Date getQuote_date() {
-        return quote_date;
+    public String getIdStock() {
+        return idStock;
     }
 
-    public void setQuote_date(Date quote_date) {
-        this.quote_date = quote_date;
+    public void setIdStock(String idStock) {
+        this.idStock = idStock;
     }
 
-    public BigDecimal getQuote_value() {
-        return quote_value;
+    public Date getQuoteDate() {
+        return quoteDate;
     }
 
-    public void setQuote_value(BigDecimal quote_value) {
-        this.quote_value = quote_value;
+    public void setQuoteDate(Date quoteDate) {
+        this.quoteDate = quoteDate;
+    }
+
+    public BigDecimal getQuoteValue() {
+        return quoteValue;
+    }
+
+    public void setQuoteValue(BigDecimal quoteValue) {
+        this.quoteValue = quoteValue;
     }
 }
