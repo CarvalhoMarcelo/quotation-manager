@@ -22,8 +22,7 @@ import java.util.logging.Logger;
 @Service
 public class StockManagerServiceImpl implements StockManagerService {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate = new RestTemplate();
 
     private final static List<LinkedHashMap<String, String>> stockManagerDTOList = new ArrayList<>();
     private final static String stockManagerUrl = "http://localhost:8080";
