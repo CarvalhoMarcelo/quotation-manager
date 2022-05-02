@@ -1,3 +1,4 @@
 FROM openjdk:8-jdk-alpine
-ARG JAR_FILE=target/*.jar
+LABEL maintainer="silva.marcelocarvalho@gmail.com"
+ADD target/quotation-manager.jar quotation-manager.jar
 ENTRYPOINT ["java","-jar","quotation-manager.jar"]

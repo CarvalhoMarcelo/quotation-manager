@@ -94,7 +94,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.inatel.quotationmanager.QuotationManagerApplication</mainClass>
+							<mainClass>QuotationManagerApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
