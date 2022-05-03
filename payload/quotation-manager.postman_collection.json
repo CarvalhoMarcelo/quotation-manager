@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "809823cc-0aa7-4db5-8986-4398ead5e5a5",
+		"name": "quotation-manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"c01cede4-cd45-11eb-b8bc-0242ac130003\",\r\n\"stockId\": \"petr3\",\r\n\"quotes\":\r\n{\r\n\"2019-01-01\": \"10\",\r\n\"2019-01-02\": \"11\",\r\n\"2019-01-03\": \"14\"\r\n}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listall",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/listallstockquote",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"listallstockquote"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/findbystockid/petr4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"findbystockid",
+						"petr4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stockregister",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\": \"petr7\",\r\n\"description\": \"test petr\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/stock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stock"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

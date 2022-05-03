@@ -1,4 +1,5 @@
 FROM openjdk:8-jdk-alpine
-LABEL maintainer="silva.marcelocarvalho@gmail.com"
-ADD target/quotation-manager.jar quotation-manager.jar
-ENTRYPOINT ["java","-jar","quotation-manager.jar"]
+VOLUME /tmp
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
