@@ -31,7 +31,6 @@ Alternative to run :
 
 **Endpoints:**
 
-Endpoints:
 ```
 (POST)   http://localhost:8081/create
 (GET)    http://localhost:8081/listallstockquote
